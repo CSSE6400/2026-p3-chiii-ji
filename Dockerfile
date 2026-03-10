@@ -20,9 +20,7 @@ COPY todo todo
 # Running our application 
 # --host is set to 0.0.0.0 to allow external access to the container
 # --port needs to match the port exposed when running the container
-CMD ["pipx", "run", "poetry", "run", "flask", "--app", "todo", "run", \ 
-   "--host", "0.0.0.0", "--port", "6400"]
+CMD ["pipx", "run", "poetry", "run", "flask", "--app", "todo", "run", "--host", "0.0.0.0", "--port", "6400"]
 
 # Adding a delay to our application startup
-# CMD ["bash", "-c", "sleep 10 && pipx run poetry run flask --app todo run \ 
-#    --host 0.0.0.0 --port 6400"]
+# CMD ["bash", "-c", "sleep 10 && pipx run poetry run flask --app todo run --host 0.0.0.0 --port 6400"]
