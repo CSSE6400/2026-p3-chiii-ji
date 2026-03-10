@@ -1,21 +1,28 @@
-FROM python:3.13-slim 
- 
-# Installing dependencies for running a Python application 
+FROM python:3.13-slim
+
+# Install pipx 
 RUN apt-get update && apt-get install -y pipx 
 RUN pipx ensurepath 
  
 # Install poetry 
-RUN pip install poetry 
- 
+RUN pip3 install poetry
+
 # Setting the working directory 
 WORKDIR /app 
  
 # Install poetry dependencies 
 COPY pyproject.toml ./ 
-RUN pipx run poetry install --no-root 
+RUN pipx run poetry install --no-root
  
 # Copying our application into the container 
-COPY todo todo 
+COPY todo todo
+ 
+# Running our application 
+# --host is set to 0.0.0.0 to allow external access to the container
+# --port needs to match the port exposed when running the container
+CMD ["pipx", "run", "poetry", "run", "flask", "--app", "todo", "run", \ 
+   "--host", "0.0.0.0", "--port", "6400"]
 
-# Running our application - Adding a delay to our application startup 
-CMD ["bash", "-c", "sleep 10 && pipx run poetry run flask --app todo run --host 0.0.0.0 --port 6400"]
+# Adding a delay to our application startup
+# CMD ["bash", "-c", "sleep 10 && pipx run poetry run flask --app todo run \ 
+#    --host 0.0.0.0 --port 6400"]
