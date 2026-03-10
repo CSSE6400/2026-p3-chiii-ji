@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y pipx
 RUN pipx ensurepath 
  
 # Install poetry 
-RUN pipx install poetry 
+RUN pip install poetry 
  
 # Setting the working directory 
 WORKDIR /app 
